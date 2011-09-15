@@ -8,6 +8,8 @@ PostgreSQL, Redis and 7z are required.
     $ mkdir -p files/packs
 
     $ bundle install
+    $ rake db:create
+    $ rake db:migrate
 
 ## Mac OS X
 

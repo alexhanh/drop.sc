@@ -4,27 +4,27 @@ In process of migrating code to open-source. Everything except the parser has be
 
 PostgreSQL, Redis and 7z are required.
 
-  $ mkdir -p files/replays
-  $ mkdir -p files/packs
+    $ mkdir -p files/replays
+    $ mkdir -p files/packs
 
-  $ bundle install
+    $ bundle install
 
 ## Mac OS X
 
-  $ brew install postgresql
-  $ brew install redis
-  $ brew install p7zip
+    $ brew install postgresql
+    $ brew install redis
+    $ brew install p7zip
 
 ## Linux
 
-  $ apt-get install p7zip-full
+    $ apt-get install p7zip-full
 
 ## Running
 
 Make sure Postgres and Redis are running and accessible from localhost.
 
-  $ foreman start
-  $ rails s
+    $ foreman start
+    $ rails s
   
 # TODO
 

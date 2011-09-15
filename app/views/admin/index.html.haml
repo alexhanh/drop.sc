@@ -1,0 +1,8 @@
+.box
+  %h2 Admin tasks
+
+  %p Upgrade user to pro
+  = form_tag make_pro_path do
+    = label_tag "User ID"
+    = text_field_tag :id
+    = submit_tag "Make pro"

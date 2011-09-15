@@ -1,0 +1,66 @@
+= title(t("packs.title", :id => @pack.id))
+= description(t("packs.description", :file => @pack.original_filename, :replay_count => @pack.replays.count))
+
+- if @can_edit
+  - if user_signed_in? && current_user.admin?
+    .admin_panel
+      = link_to "Delete", @pack, :method => :delete, :confirm => "Are you sure you want to delete this pack?"
+
+  #pack-edit.box
+    = link_to t("textile_reference"), "http://redcloth.org/hobix.com/textile/quick.html", :target => "_blank"
+    = form_tag([:edit, @pack], :method => :post) do
+      = text_area_tag(:description, @pack.description)
+      = submit_tag
+    
+  = link_to t("packs.edit_description"), [:edit, @pack], :id => "show-pack-edit"
+  
+  - if @pack.is_public && user_signed_in? && current_user.admin?
+    = form_tag [:set_event, @pack], :method => :post do
+      = label_tag :event_id, "Assign event for all pack's replays"
+      = select_tag :event_id, event_options(params[:event_id])
+      = submit_tag "Update"
+  
+.box.replay
+  != RedCloth.new(@pack.description || "").to_html
+  
+  .downloads
+    = t("downloads", :count => @pack.downloads)
+
+.span-15
+  = link_to t("packs.download"), d_pack_path(@pack, :pass => @pack.pass), :class => "download-button"
+  %span#download_url_clippy{:style => "display: none;"}= "http://drop.sc" + pack_path(@pack, :pass => @pack.pass)
+  %span#clippy_tooltip_download_url_clippy.clippy-tooltip{:title => t("clippy.copy_link_to_clipboard")}
+    != clippy("download_url_clippy")
+.span-7.last
+  = render :partial => "shared/share_links"
+%br
+%br
+
+- if @pack.success?
+  .replay.box
+    %table
+      %tr
+        %th= t("replay")
+        %th Players
+        %th= t("map")
+  
+      - @replays.each_with_index do |replay, index|
+        %tr
+          %td{:style => "font-size: 13px; font-weight: bold;"}
+            = link_to "#{((params[:page] || 1).to_i - 1)*@replays_per_page + index+1}/#{@replays_count}", replay_path(replay, :pass => replay.pass)
+            - unless replay.success?
+              !
+          %td
+            .versus
+              != versus_html(replay)
+          %td= replay.map_name
+        
+  
+    %br
+    = will_paginate(@replays)
+- elsif @pack.failed?
+  .box.notice= t("packs.parse_error")
+- else
+  .box.notice= t("packs.processing")
+  
+= render :partial => "shared/comments", :locals => { :commentable => @pack }

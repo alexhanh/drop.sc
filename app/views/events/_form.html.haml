@@ -1,0 +1,19 @@
+- form_for @event do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  
+  %p
+    = f.label :description
+    %br
+    = f.text_area :description
+  
+  %p
+    = f.label :begins
+    = f.datetime_select :begins
+  
+  %p
+    = f.label :ends
+    = f.datetime_select :ends
+  
+  = f.submit "Add/edit event"

@@ -1,5 +1,19 @@
 # See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
 #
 # To ban all spiders from the entire site uncomment the next two lines:
-# User-Agent: *
-# Disallow: /
+# http://www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449&from=40360&rd=1
+User-Agent: *
+Disallow: /profile
+Disallow: /inbox
+Disallow: /uploads
+Disallow: /users/*/uploads
+Disallow: /*/d
+Disallow: /packs/*/d
+
+User-agent: Mediapartners-Google
+Disallow: /profile
+Disallow: /inbox
+Disallow: /uploads
+Disallow: /users/*/uploads
+Disallow: /*/d
+Disallow: /packs/*/d

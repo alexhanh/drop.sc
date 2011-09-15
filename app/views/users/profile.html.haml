@@ -1,0 +1,41 @@
+- title("Profile")
+
+#profile-tabs
+  %ul
+    %li <a href="#profile-tabs-general">General</a>
+    / %li <a href="#profile-tabs-twitter">Twitter</a>
+    / %li <a href="#profile-tabs-facebook">Facebook</a>
+    %li <a href="#profile-tabs-settings">Settings</a>
+  #profile-tabs-general
+    %p
+      Greetings <b>
+      != username(current_user)
+      </b>!
+      
+    - if current_user.pro?
+      %p= "Pro until " + l(current_user.pro_until.to_date)
+    
+    = link_to 'Edit account', edit_user_registration_path, :class => "minibutton"
+  #profile-tabs-settings
+    = form_tag update_settings_path do
+      %p
+        = check_box_tag :use_colors, "1", current_user.use_colors
+        = label_tag :use_colors, "Display colorful usernames"
+    
+      = submit_tag "Update"
+  / #profile-tabs-twitter
+  /   - if user_signed_in? && current_user.twitter_account
+  /     = form_tag toggle_twitter_settings_path, :method => :post do
+  /       = label_tag :post_to_twitter, "Post a message to Twitter when I upload a replay"
+  /       = check_box_tag(:post_to_twitter, "1", current_user.twitter_account.active)
+  /       = submit_tag "Update Settings", :id => "twitter-settings-button"
+  /   - else
+  /     = link_to "Add a Twitter account", [:new, :twitter_account], :id => "add-twitter-button", :class => "minibutton"
+  / #profile-tabs-facebook
+  /   - if user_signed_in? && current_user.facebook_account
+  /     = form_tag toggle_facebook_settings_path, :method => :post do
+  /       = label_tag :post_to_facebook, "Post a message to Facebook when I upload a replay"
+  /       = check_box_tag(:post_to_facebook, "1", current_user.facebook_account.active)
+  /       = submit_tag "Update Settings", :id => "facebook-settings-button"
+  /   - else
+  /     = link_to "Add a Facebook account", [:new, :facebook_account], :id => "add-facebook-button", :class => "minibutton"

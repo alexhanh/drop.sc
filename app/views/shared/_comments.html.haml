@@ -1,0 +1,16 @@
+.box.box-container.comments#comments
+  %h3= t("comments.with_count", :count => commentable.comments_count)
+  - for comment in commentable.comments.order(:created_at)
+    .comment
+      != "<strong>" + (comment.user ? username(comment.user) : "") + "</strong> <i>" + time_ago(comment.created_at) + "</i>"
+      != RedCloth.new(comment.text).to_html
+
+  - if user_signed_in?
+    = link_to t("textile_reference"), "http://redcloth.org/hobix.com/textile/quick.html", :target => "_blank"
+    = form_for [commentable, Comment.new] do |f|
+      - if commentable.respond_to?('pass') && commentable.private?
+        = hidden_field_tag :pass, commentable.pass
+      = f.text_area :text
+      = f.submit t("comments.comment")
+  - else
+    != "Please #{link_to "sign up", new_user_registration_path} or #{link_to('login', new_user_session_path(:return_url => request.path))} to post comments."

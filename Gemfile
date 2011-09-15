@@ -2,14 +2,30 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+# Database
+gem 'pg'
+# gem 'sqlite3'
 
-gem 'sqlite3'
+# Views
+gem 'haml'
+gem "will_paginate", "3.0.pre4"
+gem "RedCloth"
 
+# Tasks
+gem 'resque', :require => "resque/server"
 
-# Gems used only for assets and not required
-# in production environments by default.
+# Uncathegorized
+gem 'foreman'
+gem 'rails3-jquery-autocomplete'
+gem 'httparty'
+gem 'nokogiri'
+gem 'uuidtools'
+gem 'rest-client'
+gem 'json'
+gem 'devise'
+gem "state_machine", "~> 1.0.2"
+gem 'transitions', :git => 'git://github.com/qoobaa/transitions.git', :require => ["transitions", "active_record/transitions"]
+
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"

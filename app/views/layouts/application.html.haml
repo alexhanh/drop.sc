@@ -1,0 +1,142 @@
+!!!
+%html{:lang => I18n.locale.to_s}
+  %head
+    %meta{:charset => 'utf-8'}
+    <link rel="icon" type="image/png" href="http://drop.sc/favicon.png" />
+    %title= content_for?(:title) ? content_for(:title) + " - drop.sc" : t("default_page_title") + " - drop.sc"
+    - if content_for?(:description)
+      %meta{:name => "description", :content => content_for(:description)}
+
+    = stylesheet_link_tag "/stylesheets/blueprint/screen", :media => "screen, projection"
+    = stylesheet_link_tag "/stylesheets/blueprint/print", :media => "print"
+    /[if lt IE 8]
+      = stylesheet_link_tag "/stylesheets/blueprint/ie", :media => "screen, projection"
+    
+    = stylesheet_link_tag "application"
+
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"
+    
+    = javascript_include_tag "application"
+  %body
+    #drag_indicator{:style=>"display: none;"}
+      .bg
+      .inside
+        %h1= t("drop_your_replays_here")
+    
+    - flash.each do |name, msg|
+      %div{ :id => "flash_#{name}" }
+        .flash-content
+          %span= msg
+    
+    .container
+      <script type="text/javascript">
+      //<![CDATA[
+      = "var loggedIn = #{user_signed_in?};"
+      var uploads = [
+      != get_uploads_data
+      ];
+      //]]>
+      </script>
+      #browser-warning{:style=>"text-align: center; display: none;"}
+      
+      .span-4
+        = link_to "drop.sc", "/", :id => "logo"
+      
+      .span-17
+        #top-add
+          - unless !Rails.env.production? || (user_signed_in? && current_user.pro?)
+            <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-1956707559301300";
+            /* drop.sc top */
+            google_ad_slot = "5102432878";
+            google_ad_width = 468;
+            google_ad_height = 60;
+            //-->
+            </script>
+            <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            </script>
+
+      #upload-button-container.span-3.last
+        #upload-button= t("upload")
+        .make-private
+          %label{:for=>"make-private", :title=>t("make_private_title")}= t("private")
+          %input#make-private{:type=>"checkbox"}
+        #file-uploader
+    
+      .span-24.last
+        - if !user_signed_in? || (user_signed_in? && !current_user.uploads.exists?)
+          #intro
+            = t('intro_text')
+            %b= link_to t('tutorial'), "/tutorial"
+        #recent-uploads
+        .box.static-container#file-upload-list-container{:style => "margin-bottom: 0px;"}
+          %h4.first= t("uploading")
+          %ul#file-upload-list
+      #top-nav-container.span-24.last
+        #top-nav
+          %ul
+            %li= link_to t("popular"), popular_path
+            %li= link_to t("search"), [:search, :replays]
+            %li= link_to t("players.plural"), [:players]
+            %li= link_to t("packs.plural"), [:packs]
+            %li= link_to t("events.events"), [:events]
+            - if user_signed_in?
+              %li= link_to t("uploads"), user_uploads_path(:id => current_user.id)
+            %li= link_to t("statistics"), "/stats"
+            - if user_signed_in?
+              %li= link_to t("account"), "/profile"
+            - if user_signed_in?
+              - if current_user.notifications.unread.exists?
+                %li.hilight= link_to t("inbox_with_count", :count => current_user.notifications.unread.count), inbox_path
+              - else
+                %li= link_to t("inbox"), inbox_path
+            - if user_signed_in?
+              %li= link_to t('logout'), destroy_user_session_path, :method => 'delete'
+            - else
+              #key-highlight
+                %li= link_to t("sign_up"), new_user_registration_path
+              %li= link_to t("login"), new_user_session_path
+            %li#fb
+              %a#fb-link{:href => "http://www.facebook.com/pages/dropsc/200146390025931", :title => t("dropsc_on_facebook"), :target => "_blank"}= image_tag("facebook_l.png", :size => "16x16")
+            %li#twitter
+              %a#twitter-link{:href => "http://twitter.com/drop_sc", :title => t("dropsc_on_twitter"), :target => "_blank"}= image_tag("twitter.png", :size => "16x16")
+              
+      .span-24.last
+        = yield
+        
+      - unless !Rails.env.production? || (user_signed_in? && current_user.pro?)
+        .span-24.last
+          .box{:style => "padding-left: 111px;"}
+            <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-1956707559301300";
+            /* dropsc_bottom */
+            google_ad_slot = "3068460667";
+            google_ad_width = 728;
+            google_ad_height = 90;
+            //-->
+            </script>
+            <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            </script>
+      
+      .span-24.last.append-bottom.prepend-top
+        #footer-container
+          #footer
+            #footer-nav
+              = link_to(t("tutorial"), "/tutorial") + " | "
+              = link_to(t("about"), "/about") + " | "
+              = link_to(t("faq"), "/faq") + " | "
+              - unless user_signed_in? && current_user.pro?
+                = link_to(t("go_pro"), "/pro") + " | "
+              = link_to(t("donate"), "/donate")
+            %ul
+              %li
+                = mail_to "support@drop.sc"
+              %li
+                &copy; 2011 drop.sc
+            .additional-notices= t("blizzard_copyright")
+      
+    - if Rails.env.production?
+      = render 'shared/ga.html'
+      = render 'shared/gauges.html'

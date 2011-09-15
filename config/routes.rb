@@ -1,58 +1,73 @@
 DropSc::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+    devise_for :users
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
+    match '/admin/' => "admin#index", :as => "admin"
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+    # root :to => "replays#popular", :time => "week"
+    root :to => "home#index"
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+    match '/api/upload' => "api#upload", :via => :post
+    match '/api/replay/:id' => 'api#replay'
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+    match '/about/'   => "static#about"
+    match '/faq/'     => "static#faq"
+    match '/twitter/' => "static#twitter"
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+    match '/donate/'  => "static#donate"
+    match '/tutorial/' => "static#tutorial"
+    match '/pro/' => "static#pro"
 
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
+    match '/users/make_pro/' => "users#make_pro", :as => "make_pro"
 
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+    resources :news_posts, :path => "/news" do
+      resources :comments, :only => [:create, :destroy]
+    end
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+    match '/users/:id/uploads' => "users#uploads", :as => "user_uploads"
+    match '/users/update_settings' => "users#update_settings", :via => :post, :as => "update_settings"
 
-  # See how all your routes lay out with "rake routes"
+    match '/popular/(:time)' => "replays#popular", :as => "popular"
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+    match '/stats/'   => "stats#stats"
+    match '/profile/' => "users#profile"
+
+    match '/inbox/'   => "notifications#index", :as => "inbox"
+
+    resources :notifications, :only => [:index] do
+      collection do
+        get 'read_all'
+      end
+    end
+
+    resources :events
+
+    match '/players/:region/:bnet_id/:name' => "players#show_slug", :as => :show_player_slug
+
+    resources :players, :only => [:index, :show] do
+      get :autocomplete_player_name, :on => :collection
+    end
+
+    resources :packs do
+      resources :comments, :only => [:create, :destroy]
+      member do
+        get 'd'
+        post 'edit'
+        post 'set_event'
+      end
+    end
+
+    resources :replays, :path => "/" do
+      member do
+        get 'd'
+        post 'set_event'
+        get 'embed'
+      end
+      collection do
+        get 'search'
+        get 'popular'
+        post 'upload'
+        get 'pro'
+      end
+      resources :comments, :only => [:create, :destroy]
+    end
 end

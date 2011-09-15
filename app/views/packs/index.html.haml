@@ -1,0 +1,21 @@
+= title(t("packs.index_title"))
+= description(t("packs.index_description"))
+
+.subheader
+  .order_by
+    = packs_order_link("date_posted", t("order_links.date_posted"))
+    = packs_order_link("downloads", t("order_links.downloads"))
+
+- for pack in @packs
+  .box.replay
+    .test
+      != RedCloth.new(pack.description || "").to_html
+      
+      %br
+      = link_to t("details"), pack, :class => "minibutton"
+      = link_to t("packs.download"), d_pack_path(pack, :pass => pack.pass), :class => "minibutton"
+      
+    .downloads
+      = "#{t("replays", :count => pack.replays.count)}, #{t("downloads", :count => pack.downloads)}"
+      
+= will_paginate(@packs)

@@ -1,0 +1,20 @@
+= title(t("notifications.title"))
+
+- if @notifications.count == 0
+  .box.static-container
+    = t("notifications.no_notifications")
+- else
+  = link_to t("notifications.mark_all_as_read"), "/notifications/read_all"
+  - for notification in @notifications
+    .box.static-container.replay
+      %b
+        != notification.title + " <i>#{time_ago(notification.created_at)}</i>"
+      %br
+      = notification.body
+      %br
+      = link_to t("notification.read"), notification_url(notification), :class => "read-button minibutton"
+      
+      - if !notification.read
+        .unread
+          = t("notification.unread")
+  = will_paginate(@notifications)

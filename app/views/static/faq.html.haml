@@ -1,0 +1,37 @@
+- title("Frequently Asked Questions")
+
+.box.static-container
+  %h4.first!= "What is " + link_to("drop.sc", :root) + "?"
+  #{link_to "Starcraft 2", "http://www.starcraft2.com"} replay sharing site.
+
+  %h4!= "What features does " + link_to("drop.sc", :root) + " have?"
+  
+  %ul
+    %li Upload multiple replays at once
+    %li Supports sharing of any type of Starcraft 2 replay (.SC2Replay) files
+    %li Statistics for 1v1, 2v2, 3v3, 4v4, FFA and some other game types
+    %li Drag and drop replays straight from your folder
+    %li No registration needed to use it
+    %li Truly private sharing
+    %li Detects if a replay has already been uploaded (no need to worry about uploading the same replay twice)
+    %li Replay packs from ZIP, TAR and 7z archives (RAR not supported for a reason)
+  
+  %h4 Which browsers are supported?
+  Tested with the latest versions of <strong>#{link_to "Google Chrome", "http://www.google.com/chrome"}</strong>, <strong>#{link_to "Firefox", "http://www.mozilla-europe.org/en/firefox/"}</strong>, <strong>#{link_to "Safari", "http://www.apple.com/safari/"}</strong> and <strong>Internet Explorer 7/8</strong>. Mac OS X and Windows are both supported.
+  
+  Please note that Internet Explorer <strong>does not</strong> support drag & drop or uploading multiple replays at once. It also gives inferior look and feel experience compared to other browsers.
+  
+  %h4 What does 'RZ', 'RP' and 'RT' mean?
+  The first 'R' character means that the player chose random and the latter character indicates the actual race he got for that game.
+  
+  %h4 What is a replay pack?
+  A replay pack is simply a collection of replays linked together. Whenever a ZIP, TAR or 7z archive containing replays is uploaded, it's treated as a replay pack. The maximum size for a replay pack is 25Mb.
+  
+  %h4 How to deal with "cannot be compressed because it includes characters that cannot be used in a compressed folder" when creating a ZIP file?
+  Rename the files or use 7z or TAR. Good alternatives for Windows are <a href="http://www.peazip.org/">Peazip</a> and <a href="http://www.7-zip.org/">7-Zip</a>.
+  
+  %h4 How is player's average APM calculated?
+  It's the player's average APM in all of the replays, of any format (1v1, 2v2, 3v3, 4v4, FFA, custom maps, etc.).
+  
+  %h4 How is game length calculated and why is it different from what Starcraft 2 gives?
+  Game length and APM is converted to real-time. <a href="http://wiki.teamliquid.net/starcraft2/Game_Speed">See Liquipedia's article on game speed for better explanation</a>.

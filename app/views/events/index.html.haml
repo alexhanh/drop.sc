@@ -1,0 +1,9 @@
+= title(t("events.events"))
+
+- if user_signed_in? && current_user.admin?
+  .admin_panel
+    = link_to t("events.new"), new_event_path
+
+- for event in @events
+  .box.static-container
+    = link_to event.name, event

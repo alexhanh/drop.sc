@@ -1,0 +1,4 @@
+- for replay in replays
+  = render :partial => "replays/replay", :locals => { :replay => replay, :show_downloads => show_downloads }
+    
+= will_paginate(replays)

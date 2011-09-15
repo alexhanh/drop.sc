@@ -9,8 +9,12 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+Dir[File.expand_path('../../lib/*.rb', __FILE__)].each {|f| require f}
+
 module DropSc
   class Application < Rails::Application
+    config.action_controller.allow_forgery_protection = false
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -37,7 +41,7 @@ module DropSc
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :fileContent]
 
     # Enable the asset pipeline
     config.assets.enabled = true

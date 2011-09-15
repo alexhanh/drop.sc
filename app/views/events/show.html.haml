@@ -1,0 +1,13 @@
+- title(@event.name)
+- description(t('events.description', :name => @event.name))
+
+- if user_signed_in? && current_user.admin?
+  .admin_panel
+    = link_to "Edit", [:edit, @event]
+
+.box.replay
+  %h3= @event.name
+  
+  != RedCloth.new(@event.description || "").to_html
+        
+= render :partial => "replays/replays", :locals => { :replays => @replays, :show_downloads => true }

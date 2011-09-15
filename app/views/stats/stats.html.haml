@@ -1,0 +1,25 @@
+- title("Statistics, Race popularity, Win rates")
+
+.box.static-container
+  .container.overall_stats
+    .prepend-1.span-6.append-2
+      <b>Race popularity</b><br>
+      - @races.each do |format|
+        %b= format[0]
+        %table
+          - @races[format[0]].each do |race|
+            %tr
+              %td.map= long_race(race[0])
+              %td.win_rate= "#{(race[1][:total] / @races[format[0]].inject(0) {|sum, race| sum + race[1][:total]}.to_f * 100.0).round}%"
+
+    .span-6
+      <b>Win rates</b><br>
+      - @races.each do |format|
+        %b= format[0]
+        %table
+          - @races[format[0]].each do |race|
+            %tr
+              %td.map= long_race(race[0])
+              %td.win_rate= "#{(race[1][:wins] / race[1][:total].to_f * 100.0).round}%"
+    .span-3.last
+    

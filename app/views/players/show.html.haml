@@ -1,0 +1,64 @@
+- title(t("players.title", :name => @player.name))
+- description(player_description(@player))
+
+.box.player.player_stats
+  %h1= @player.name
+  
+  - if @player.has_aliases?
+    %p= t("players.aka", :aliases => @player.aliases.split(',').keep_if { |a| a != @player.name }.join(', '))
+
+  %p= link_to t("players.player_replays", :name => @player.name), search_replays_path(:player => "##{@player.id}")
+
+  %p
+    = link_to t("players.bnet_profile"), @player.bnet_url
+    %br
+    = link_to t("sc2ranks_profile"), @player.sc2ranks_url
+
+  %p
+    - if @player.sub_region != 1
+      != t("region") + ": <b>#{@player.gateway} (#{@player.region})</b>"
+    - else
+      != t("region") + ": <b>#{@player.gateway}</b>"
+    %br
+    - if @total_plays > 0
+      != t("average_apm") + ": <b>#{@avg_apm.to_i}</b>"
+      %br
+      != "1v1 APM: <b>#{@avg_apm_1v1.to_i}</b>"
+      %br
+      != "#{t("most_played_race")}: <b>#{long_race(@most_played_race)}</b>"
+
+  .bnet-profile
+    %b= t("rankings")
+    %br
+    - if @player.bnet_name_changed?
+      = t("players.name_changed")
+    - elsif @player.ranked_1v1?
+      %b= t("1v1")
+      = " #{league_string(@player.league_1v1)} (#{@player.rank_1v1.ordinalize})"
+    - else
+      = t("players.not_yet_ranked")
+    %br
+    - if @player.bnet_updated?
+      (Updated: #{time_ago(@player.crawled_at)})
+    - else
+      = t("players.not_yet_updated")
+
+  - if @total_plays > 0
+    %b= t("players.winrates_by_map")
+    %br
+    - @maps.each do |format|
+      %b= format[0]
+      %table
+        - @maps[format[0]].each do |map|
+          %tr
+            %td= link_to(map[0], search_replays_path(:player => "##{@player.id}", :map => map[0], :game_format => format[0]))
+            %td= "#{(map[1][:wins] / map[1][:total].to_f * 100.0).round}%"
+    %b= t("players.winrates_by_race")
+    %br
+    - @maps.each do |format|
+      %b= format[0]
+      %table
+        - @races[format[0]].each do |race|
+          %tr
+            %td.map= long_race(race[0])
+            %td.win_rate= "#{(race[1][:wins] / race[1][:total].to_f * 100.0).round}%"

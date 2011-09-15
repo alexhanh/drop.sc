@@ -1,0 +1,63 @@
+= title(t("replays.search.title"))
+= description("replays.search.description")
+
+.box.search
+  = form_tag [:search, :replays], :method => :get do
+    = select_tag :map, map_options(params[:map])
+    %br
+    .radio
+      = label_tag :mu_any, t("replays.search.mu_any")
+      %br
+      = radio_button_tag("mu", "any", @any)
+
+    .radio
+      = label_tag :mu_tvp, t("tvp")
+      %br
+      = radio_button_tag("mu", "tvp", params[:mu] == "tvp")
+    
+    .radio
+      = label_tag :mu_tvz, t("tvz")
+      %br
+      = radio_button_tag("mu", "tvz", params[:mu] == "tvz")
+    
+    .radio
+      = label_tag :mu_pvz, t("pvz")
+      %br
+      = radio_button_tag("mu", "pvz", params[:mu] == "pvz")
+    
+    .radio
+      = label_tag :mu_tvt, t("tvt")
+      %br
+      = radio_button_tag("mu", "tvt", params[:mu] == "tvt")
+      
+    .radio
+      = label_tag :mu_pvp, t("pvp")
+      %br
+      = radio_button_tag("mu", "pvp", params[:mu] == "pvp")
+
+    .radio
+      = label_tag :mu_zvz, t("zvz")
+      %br
+      = radio_button_tag("mu", "zvz", params[:mu] == "zvz")
+    
+    .radio
+      = label_tag :player, t("replays.search.has_player")
+      %br
+      = autocomplete_field_tag :player, params[:player], autocomplete_player_name_players_path, :update_elements => { :gateway => "#gateway", :league_1v1 => "#league"}
+
+    = select_tag :version, get_version_options(params[:version])
+    = select_tag :gateway, gateway_options(params[:gateway])
+    = select_tag :game_format, game_format_options(params[:game_format])
+    = select_tag :league, league_options(params[:league])
+    = submit_tag "Search"
+
+.subheader
+  %h2= page_entries_info @replays
+
+  .order_by
+    = replays_order_link("date_posted", t("order_links.date_posted"))
+    = replays_order_link("downloads", t("order_links.downloads"))
+    = replays_order_link("date_played", t("order_links.date_played"))
+    = replays_order_link("comments", t("order_links.comments"))
+
+= render :partial => "replays", :locals => { :replays => @replays, :show_downloads => true }

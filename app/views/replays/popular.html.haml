@@ -1,0 +1,12 @@
+- title(popular_title(@today, @week, @month, @year, @all))
+- description(t("replays.popular.title"))
+
+.subheader
+  .order_by{:style => "float: left;"}
+    = popular_link(@today, t("today"), "today")
+    = popular_link(@week, t("this_week"), "week")
+    = popular_link(@month, t("this_month"), "month")
+    = popular_link(@year, t("this_year"), "year")
+    = popular_link(@all, t("all_time"), "all")
+
+= render :partial => "replays", :locals => { :replays => @replays, :show_downloads => true }

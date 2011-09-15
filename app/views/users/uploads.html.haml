@@ -1,0 +1,29 @@
+= title("Uploads")
+
+.box.static-container
+  %table
+    %tr
+      %th.first File
+      %th Processed
+      %th.last Uploaded
+    
+    - @uploads.each_with_index do |upload, index|
+      - if index % 2 == 0
+        %tr.even
+          %td.first= get_link(upload.uploadable.original_filename, upload.uploadable, upload.user_id)
+          %td
+            - if upload.uploadable.success?
+              %span.processed
+            - if upload.uploadable.failed?
+              %span !
+          %td.last= time_ago(upload.uploadable.created_at)
+
+      - else
+        %tr
+          %td.first= get_link(upload.uploadable.original_filename, upload.uploadable, upload.user_id)
+          %td
+            - if upload.uploadable.success?
+              %span.processed
+          %td.last= time_ago(upload.uploadable.created_at)
+  
+  = will_paginate(@uploads)

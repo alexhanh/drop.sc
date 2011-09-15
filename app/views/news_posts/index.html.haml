@@ -1,0 +1,17 @@
+- title "Starcraft 2 and development news of drop.sc"
+
+- if user_signed_in? && current_user.admin?
+  %p= link_to "New Post", new_news_post_path
+.box.static-container
+  - for post in @news_posts
+    - if user_signed_in? && current_user.admin?
+      .admin_panel
+        = link_to 'Show', post
+        = link_to 'Edit', edit_news_post_path(post)
+        = link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete
+  
+    .newspost
+      %h2= link_to post.title, post
+      != RedCloth.new(post.body).to_html
+      %span{:title=>post.created_at}= l(post.created_at, :format => :short)
+      != "by <i>#{post.author}</i>, " + link_to("#{pluralize(post.comments_count, "comment", "comments")}", news_post_path(post, :anchor => :comments))

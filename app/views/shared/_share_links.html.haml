@@ -1,0 +1,15 @@
+.span-9.last{:style => "position: relative; top: -10px;"}
+  .links{:style => "float: right;"}
+    %b= t("share")
+    
+    %span.facebook_large
+      %a{:href => 'http://www.facebook.com/sharer.php?u=' + request.url + '&t=' + content_for(:title), :target => "_blank", :title => t("submit_to_facebook")}
+        = image_tag "share_facebook.png", :alt => t("share_on_facebook")
+        
+    %span.reddit_large
+      %a{:href => 'http://www.reddit.com/submit?url=' + request.url + '&title=' + content_for(:title), :target => "_blank", :title => t("submit_to_reddit")}
+        = image_tag "share_reddit.png", :alt => t("share_on_reddit")
+        
+    %span.twitter_large
+      %a{:href => 'https://twitter.com/share?via=drop_sc&url=' + request.url + '&text=' + content_for(:title), :target => "_blank", :title => t("submit_to_twitter")}
+        = image_tag "share_twitter.png", :alt => t("share_on_twitter")

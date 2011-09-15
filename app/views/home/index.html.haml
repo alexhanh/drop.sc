@@ -1,0 +1,32 @@
+.span-18
+  .box.static-container
+    - for post in NewsPost.order("created_at DESC").limit(5)
+      .newspost
+        %h2= link_to post.title, post
+        != RedCloth.new(post.body).to_html
+        %span{:title=>post.created_at}= l(post.created_at, :format => :short)
+        != "by <i>#{post.author}</i>, " + link_to("#{pluralize(post.comments_count, "comment", "comments")}", news_post_path(post, :anchor => :comments))
+.span-6.last
+  .box.static-container
+    = link_to t("home.latest_patch_replays"), search_replays_path(:version => @latest_patch)
+    %br
+    = link_to t("home.grandmaster_replays"), search_replays_path(:league => "Grandmaster")
+  .box.static-container
+    %h4.first= t("events.events")
+    - for event in @events
+      = link_to event.name, event
+    %br
+    = link_to t("see_more"), events_path
+  - unless !Rails.env.production? || (user_signed_in? && current_user.pro?)
+    .box
+      <script type="text/javascript"><!--
+      google_ad_client = "ca-pub-1956707559301300";
+      /* dropsc_right */
+      google_ad_slot = "6965777277";
+      google_ad_width = 200;
+      google_ad_height = 200;
+      //-->
+      </script>
+      <script type="text/javascript"
+      src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>

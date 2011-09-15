@@ -1,0 +1,23 @@
+- title @news_post.title
+
+.box.static-container
+  .newspost
+    %h3
+      = @news_post.title
+    != l(@news_post.created_at, :format => :short) + " by <i>" + @news_post.author + "</i>"
+    
+    %p
+      != RedCloth.new(@news_post.body).to_html
+
+.span-15
+  - if user_signed_in? && current_user.admin?
+    = link_to "Edit", edit_news_post_path(@news_post)
+    |
+    = link_to "Destroy", @news_post, :confirm => 'Are you sure?', :method => :delete
+    |
+  = link_to t("news.back_to_news"), news_posts_path
+.span-7.last
+  = render :partial => "shared/share_links"
+%br  
+
+= render :partial => "shared/comments", :locals => { :commentable => @news_post }

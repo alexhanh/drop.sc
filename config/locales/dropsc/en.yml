@@ -1,0 +1,171 @@
+en:
+  tutorial: "Tutorial"
+  intro_text: "This is a place for Starcraft 2 replay sharing! To share, drag your replay files onto this page or use the Upload button."
+  see_more: "See more"
+  default_page_title: "Starcraft 2 Replays"
+  drop_your_replays_here: "Drop your replays here!"
+  upload: "Upload"
+  uploading: "Uploading"
+  make_private_title: "Checking this will make your uploads (replays and packs) private and accessible only by those who have the url. This applies to drag and drop as well."
+  private: "Private"
+  popular: "Popular"
+  search: "Search"
+  replay: "Replay"
+  map: "Map"
+  uploads: "Uploads"
+  statistics: "Statistics"
+  account: "Account"
+  logout: "Logout"
+  sign_up: "Sign up"
+  gateway: "Gateway"
+  faster: "Faster"
+  fast: "Fast"
+  normal: "Normal"
+  slow: "Slow"
+  slower: "Slower"
+  region: "Region"
+  sc2_version: "SC2 version"
+  description: "Description"
+  average_apm: "Average APM"
+  match_apm: "Match APM"
+  share: "Share"
+  1v1: "1v1"
+  tvp: "TvP"
+  tvz: "TvZ"
+  pvz: "PvZ"
+  tvt: "TvT"
+  pvp: "PvP"
+  zvz: "ZvZ"
+  textile_reference: "Textile reference"
+  login: "Login"
+  dropsc_on_facebook: "drop.sc on Facebook"
+  dropsc_on_twitter: "drop.sc on Twitter"
+  share_on_facebook: "Share on Facebook"
+  submit_to_facebook: "Submit to Facebook"
+  share_on_twitter: "Share on Twitter"
+  submit_to_twitter: "Submit to Twitter"
+  share_on_reddit: "Share on Reddit"
+  submit_to_reddit: "Submit to Reddit"
+  ranking: "Rankings"
+  about: "About"
+  faq: "FAQ"
+  go_pro: "Go Pro"
+  donate: "Donate"
+  blizzard_copyright: "Starcraft 2 is a trademark of Blizzard Entertainment Inc. This site is not affiliated with or endorsed by Blizzard Entertainment Inc. in any way."
+  
+  details: "Details"
+  
+  inbox: "Inbox"
+  inbox_with_count: "Inbox (%{count})"
+
+  news:
+    back_to_news: "Back to News"
+    
+  notifications:
+    title: "Notifications"
+    no_notifications: "You don't have any notifications yet."
+    mark_all_as_read: "Mark all as read"
+    read: "Read"
+    unread: "Unread"
+    
+  packs:
+    plural: "Packs"
+    index_title: "Replay Packs"
+    index_description: "Browse, download and upload Starcraft 2 replay packs in zip, 7z and tar formats."
+    title: "Replay pack %{id}"
+    description: "File: %{file}, Replays: %{replay_count}"
+    download: "Download Pack"
+    edit_description: "Edit Description"
+    parse_error: "We were not able to process this pack. The pack can be downloaded."
+    processing: "This pack is being processed. It can be downloaded already."
+
+  clippy:
+    copy_link_to_clipboard: "copy link to clipboard"
+
+  players:
+    singular: "Player"
+    plural: "Players"
+    
+    index_title: "Player search"
+    index_description: "Search players by name, region and league (grandmaster, master, etc.)"
+    title: "%{name}'s profile"
+    search_for_player: "Search for player"
+    aka: "also known as %{aliases}"
+    player_replays: "%{name}'s replays"
+    bnet_profile: "Battle.net profile"
+    sc2ranks_profile: "SC2 Ranks profile"
+    most_played_race: "Most played race"
+    name_changed: "Player has changed name."
+    not_yet_ranked: "Not yet ranked."
+    not_yet_updated: "(Not yet updated)"
+    winrates_by_map: "Winrates by map"
+    winrates_by_race: "Winrates by race"
+  
+  comments:
+    plural: "Comments"
+    with_count: "Comments (%{count})"
+    comment: "Comment"
+  
+  order_links:
+    date_posted: "date posted"
+    downloads: "downloads"
+    comments: "comments"
+    date_played: "date played"
+
+  downloads:
+    zero: "0 downloads"
+    one: "1 download"
+    few: "%{count} downloads"
+    many: "%{count} downloads"
+    other: "%{count} downloads"
+    plural: "Downloads"
+
+  replays:
+    zero: "0 replays"
+    one: "1 replay"
+    few: "%{count} replays"
+    many: "%{count} replays"
+    other: "%{count} replays"
+    
+    show_winner: "Show winner"
+    message_log: "Message Log"
+    
+    download: "Download Replay"
+    
+    parse_error: "We were not able to process this replay. The replay can be downloaded."
+    processing: "This replay is being processed. It can be downloaded already."
+    
+    length:
+      zero: "0 mins"
+      one: "1 min"
+      few: "%{count} mins"
+      many: "%{count} mins"
+      other: "%{count} mins"
+    
+    tabs:
+      overall: "Overall"
+      apm: "APM"
+      chat: "Chat"
+      
+    popular:
+      description: "Most downloaded replays"
+      today: "today"
+      this_week: "this week"
+      this_month: "this month"
+      this_year: "this year"
+      all_time: "all time"
+    
+    search:
+      title: "Search replays"
+      description: "Search Starcraft 2 replays. You can filter by matchup (TvT, PvP, ZvZ, PvZ, TvZ, TvP), players, types (1v1, 2v2, 3v3, 4v4, FFA), etc. and order by recent and by popularity."
+      mu_any: "Any"
+      has_player: "Has player"
+
+  events:
+    events: "Events"
+    event: "Event"
+    new: "Add event"
+    description: "Replays for %{name}"
+  home:
+    latest_patch_replays: "Latest patch replays"
+    grandmaster_replays: "Grandmaster replays"

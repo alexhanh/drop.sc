@@ -1,0 +1,21 @@
+.replay.box
+  - unless replay.event.nil?
+    .event-link
+      = link_to replay.event.name, replay.event
+
+  .versus
+    != versus_html(replay)
+  
+  %span{:style=>"margin-left: 10px;"}!= "<b>#{replay.map_name}</b> #{t("replays.length", :count => replay.game_length/60)}<span class=\"at\"> ~ </span><i>#{days_ago(replay.saved_at)}</i>"
+  %span.replay-description= replay_cut_description(replay.description)
+
+  .replay-nav
+    = link_to t("details"), replay, :class => "minibutton"
+    = link_to t("download"), [:d, replay], :class => "minibutton"
+
+  - if show_downloads
+    .downloads{:style=>"font-weight: normal;"}
+      %span.rtime-ago!= time_ago(replay.created_at) + source_link(replay)
+      %ul.replay-stats
+        %li.rdownloads= link_to replay.downloads, replay_path(replay), :title => t("downloads.plural")
+        %li.comments= link_to replay.comments_count, replay_path(replay, :anchor => :comments), :title => t("comments.plural")

@@ -1,0 +1,20 @@
+- title(t("players.index_title"))
+- description("players.index_description")
+
+.box.search
+  = form_tag [:players], :method => :get do
+    = label_tag :player, t("players.search_for_player")
+    = autocomplete_field_tag :player_name, params[:player_name], autocomplete_player_name_players_path, :update_elements => { :gateway => "#gateway", :league_1v1 => "#league"}
+    = select_tag :gateway, gateway_options(params[:gateway])
+    = select_tag :league, league_options(params[:league])
+    = submit_tag t("search"), :id => "search-button"
+
+.box.static-container
+  %table
+    - @players.each do |player|
+      %tr
+        %td= player_link(player)
+        %td= player.region
+        %td= league_string(player.league_1v1)
+  
+= will_paginate(@players)

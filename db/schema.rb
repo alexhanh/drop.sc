@@ -128,10 +128,8 @@ ActiveRecord::Schema.define(:version => 20110904144145) do
     t.string   "state",             :limit => 20
     t.integer  "comments_count",                   :default => 0
     t.string   "game_speed",        :limit => 8
-    t.string   "game_category",     :limit => 15
     t.string   "game_type",         :limit => 7
     t.string   "map_file_name",     :limit => 75
-    t.string   "start_location",    :limit => 21
   end
 
   create_table "subscriptions", :force => true do |t|

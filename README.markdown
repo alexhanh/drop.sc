@@ -6,6 +6,8 @@ PostgreSQL, Redis and 7z are required.
 
     $ mkdir -p files/replays
     $ mkdir -p files/packs
+    
+    $ python setup.py develop
 
     $ bundle install
     $ rake db:create
@@ -27,7 +29,7 @@ Make sure Postgres and Redis are running and accessible from localhost.
 
     $ foreman start
     $ rails s
-  
+
 # TODO
 
  - Forgery protection!!!

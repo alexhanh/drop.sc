@@ -36,3 +36,4 @@ Make sure Postgres and Redis are running and accessible from localhost.
 
  - Forgery protection!!!
  - ext3 ~30k sub-directory per inode limit (careful with packs)
+ - Still a lot of cleaning todo

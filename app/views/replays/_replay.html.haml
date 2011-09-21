@@ -4,7 +4,10 @@
       = link_to replay.event.name, replay.event
 
   .versus
-    != versus_html(replay)
+    - if replay.gateway != "XX"
+      != versus_html(replay)
+    - else
+      %p= "Test realm replay, patch #{replay.version}"
   
   %span{:style=>"margin-left: 10px;"}!= "<b>#{replay.map_name}</b> #{t("replays.length", :count => replay.game_length/60)}<span class=\"at\"> ~ </span><i>#{days_ago(replay.saved_at)}</i>"
   %span.replay-description= replay_cut_description(replay.description)

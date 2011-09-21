@@ -1,0 +1,3 @@
+[submodule "parser/sc2reader"]
+	path = parser/sc2reader
+	url = git@github.com:GraylinKim/sc2reader.git

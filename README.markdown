@@ -20,7 +20,8 @@ PostgreSQL, Redis and 7z are required.
     $ brew install p7zip
 
 ## Linux
-
+Install PostgreSQL and Redis
+    
     $ apt-get install p7zip-full
 
 ## Running

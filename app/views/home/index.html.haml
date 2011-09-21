@@ -17,16 +17,3 @@
       = link_to event.name, event
     %br
     = link_to t("see_more"), events_path
-  - unless !Rails.env.production? || (user_signed_in? && current_user.pro?)
-    .box
-      <script type="text/javascript"><!--
-      google_ad_client = "ca-pub-1956707559301300";
-      /* dropsc_right */
-      google_ad_slot = "6965777277";
-      google_ad_width = 200;
-      google_ad_height = 200;
-      //-->
-      </script>
-      <script type="text/javascript"
-      src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-      </script>

@@ -44,18 +44,6 @@
       
       .span-17
         #top-add
-          - unless !Rails.env.production? || (user_signed_in? && current_user.pro?)
-            <script type="text/javascript"><!--
-            google_ad_client = "ca-pub-1956707559301300";
-            /* drop.sc top */
-            google_ad_slot = "5102432878";
-            google_ad_width = 468;
-            google_ad_height = 60;
-            //-->
-            </script>
-            <script type="text/javascript"
-            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-            </script>
 
       #upload-button-container.span-3.last
         #upload-button= t("upload")
@@ -97,28 +85,9 @@
               #key-highlight
                 %li= link_to t("sign_up"), new_user_registration_path
               %li= link_to t("login"), new_user_session_path
-            %li#fb
-              %a#fb-link{:href => "http://www.facebook.com/pages/dropsc/200146390025931", :title => t("dropsc_on_facebook"), :target => "_blank"}= image_tag("facebook_l.png", :size => "16x16")
-            %li#twitter
-              %a#twitter-link{:href => "http://twitter.com/drop_sc", :title => t("dropsc_on_twitter"), :target => "_blank"}= image_tag("twitter.png", :size => "16x16")
               
       .span-24.last
         = yield
-        
-      - unless !Rails.env.production? || (user_signed_in? && current_user.pro?)
-        .span-24.last
-          .box{:style => "padding-left: 111px;"}
-            <script type="text/javascript"><!--
-            google_ad_client = "ca-pub-1956707559301300";
-            /* dropsc_bottom */
-            google_ad_slot = "3068460667";
-            google_ad_width = 728;
-            google_ad_height = 90;
-            //-->
-            </script>
-            <script type="text/javascript"
-            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-            </script>
       
       .span-24.last.append-bottom.prepend-top
         #footer-container
@@ -128,15 +97,5 @@
               = link_to(t("about"), "/about") + " | "
               = link_to(t("faq"), "/faq") + " | "
               - unless user_signed_in? && current_user.pro?
-                = link_to(t("go_pro"), "/pro") + " | "
-              = link_to(t("donate"), "/donate")
-            %ul
-              %li
-                = mail_to "support@drop.sc"
-              %li
-                &copy; 2011 drop.sc
+                = link_to(t("go_pro"), "/pro")
             .additional-notices= t("blizzard_copyright")
-      
-    - if Rails.env.production?
-      = render 'shared/ga.html'
-      = render 'shared/gauges.html'

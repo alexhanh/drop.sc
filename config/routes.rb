@@ -13,7 +13,6 @@ DropSc::Application.routes.draw do
     match '/faq/'     => "static#faq"
     match '/twitter/' => "static#twitter"
 
-    match '/donate/'  => "static#donate"
     match '/tutorial/' => "static#tutorial"
     match '/pro/' => "static#pro"
 

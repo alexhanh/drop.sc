@@ -8,9 +8,6 @@ class StaticController < ApplicationController
   def news
   end
   
-  def donate
-  end
-  
   def tutorial
   end
   

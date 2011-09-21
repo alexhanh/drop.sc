@@ -1,5 +1,3 @@
-In process of migrating code to open-source. Everything except the parser has been released.
-
 # Installing
 
 PostgreSQL, Redis and 7z are required.

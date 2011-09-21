@@ -5,6 +5,9 @@ PostgreSQL, Redis and 7z are required.
     $ mkdir -p files/replays
     $ mkdir -p files/packs
     
+    $ git submodule init
+    $ git submodule update
+    
     $ python setup.py develop
 
     $ bundle install

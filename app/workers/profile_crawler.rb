@@ -24,6 +24,8 @@ class ProfileCrawler
       player.crawled_at = Time.current
 
       player.save!
+      
+      Resque.enqueue(ProfileCrawler, count)
     end
   end
 end

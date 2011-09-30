@@ -17,11 +17,14 @@ class Starscraper
 	def read_profile
 		data = {}
 		begin
-		  doc = Nokogiri::HTML(read_page(URI.encode(@baseurl)))
+      # doc = Nokogiri::HTML(read_page(URI.encode(@baseurl)))
+      io = open(@baseurl, "Cookie" => "int-SC2=1")
+      doc = Nokogiri::HTML(io)
+      io.close!
 
       # handle HOTS promotion
       return nil if (doc.at_css("#intercept"))
-      
+        
       # page doesn't have profile data, stop here
       return nil if (doc.at_css("#profile-wrapper").nil?)
 

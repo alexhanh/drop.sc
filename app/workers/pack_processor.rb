@@ -42,7 +42,7 @@ class PackProcessor
         replay.begin_renaming! # sets state to 'renaming' and calls save!
         
         replay.file = replay.id.to_s + '.SC2Replay'
-        Processable.save_to_file(raw_data, Rails.root.join('files', 'replays', replay.id.to_s, replay.file))      
+        Processable.save_to_file(raw_data, replay.absolute_file_path)
         
         replay.end_renaming! # sets state to 'unprocessed' and calls save!
       end

@@ -63,6 +63,12 @@ class Starscraper
       return nil
     rescue SocketError
       return nil
+    rescue Timeout::Error
+      return nil
+    rescue Errno::ECONNRESET
+      return nil
+    rescue EOFError
+      return nil
     rescue OpenURI::HTTPError => e
       return nil if e.io.status[0].to_s != "404"
       data['name_changed'] = true

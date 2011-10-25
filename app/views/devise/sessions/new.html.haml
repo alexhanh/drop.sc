@@ -3,9 +3,9 @@
   = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     = hidden_field_tag :return_url, params[:return_url]
     %p
-      = f.label :username
+      = f.label :login
       %br/
-      = f.text_field :username
+      = f.text_field :login
     %p
       = f.label :password
       %br/

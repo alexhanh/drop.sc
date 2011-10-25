@@ -4,8 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  attr_accessor :login
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :use_colors
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :use_colors, :login
   
   validates_uniqueness_of :username
   validates_length_of :username, :in => 3..15
@@ -18,8 +20,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :notifications
   
-  # has_one :twitter_account
-  # has_one :facebook_account
+  has_one :twitter_account
+  has_one :facebook_account
   
   def admin?
     is_admin
@@ -35,15 +37,22 @@ class User < ActiveRecord::Base
     use_colors
   end
   
-  # def tweet(msg)
-  #   if self.twitter_account && self.twitter_account.active
-  #     self.twitter_account.post(msg)
-  #   end
-  # end
-  # 
-  # def post_to_facebook(msg)
-  #   if self.facebook_account && self.facebook_account.active
-  #     self.facebook_account.post(msg)
-  #   end
-  # end
+  def tweet(msg)
+    if self.twitter_account && self.twitter_account.active
+      self.twitter_account.post(msg)
+    end
+  end
+  
+  def post_to_facebook(msg)
+    if self.facebook_account && self.facebook_account.active
+      self.facebook_account.post(msg)
+    end
+  end
+  
+  protected
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+  end
 end

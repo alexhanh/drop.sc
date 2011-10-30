@@ -25,7 +25,7 @@ Install PostgreSQL and Redis
     
     $ apt-get install p7zip-full
 
-## Running
+# Running
 
 Make sure Postgres and Redis are running and accessible from localhost.
 

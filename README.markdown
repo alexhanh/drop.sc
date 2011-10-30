@@ -2,17 +2,18 @@
 
 PostgreSQL, Redis and 7z are required.
 
-    ## Mac OS X
+## Mac OS X
 
-        $ brew install postgresql
-        $ brew install redis
-        $ brew install p7zip
+    $ brew install postgresql
+    $ brew install redis
+    $ brew install p7zip
 
-    ## Linux
-    Install PostgreSQL, Redis and 7z (p7zip-full)
+## Linux
+Install PostgreSQL, Redis and 7z (p7zip-full)
     
     $ apt-get install p7zip-full
 
+## Other stuff
     $ mkdir -p files/replays
     $ mkdir -p files/packs
     

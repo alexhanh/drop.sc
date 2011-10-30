@@ -182,7 +182,8 @@ class ReplaysController < ApplicationController
       #         send_file(Rails.root.join('files', 'replays', replay.id.to_s, replay.id.to_s+".SC2Replay"))
       #       else
       #       end
-        
+      
+      broadcast('/downloads/new', 'count' => Replay.sum(:downloads))
     else
       redirect_to :root, :error => "You are not authorized to download this replay."
     end

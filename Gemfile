@@ -24,7 +24,7 @@ gem 'rest-client'
 gem 'json'
 gem 'devise'
 gem "state_machine", "~> 1.0.2"
-gem 'transitions', :git => 'git://github.com/qoobaa/transitions.git', :require => ["transitions", "active_record/transitions"]
+gem 'transitions', :require => ["transitions", "active_record/transitions"]
 
 group :assets do
   gem 'sass-rails', "  ~> 3.1.0"

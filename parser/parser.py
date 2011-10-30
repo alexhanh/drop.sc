@@ -166,7 +166,7 @@ def parse_replay(session, DBPlayer, replay_id):
                     m.sender_color = "#" + message.sender.color.hex
                     m.msg = message.text
                     m.target = message.target
-                    m.time = message.seconds
+                    m.time = message.time.seconds
                     m.pid = message.sender.pid
                
                     msg_number += 1
@@ -194,7 +194,7 @@ def parse_replay(session, DBPlayer, replay_id):
         except:
             print "EXCEPT"
             # Enable for debugging!!!
-            # raise
+            raise
             r.state = 'failed'
             session.add(r)
             session.commit()

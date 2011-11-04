@@ -1,4 +1,11 @@
 en:
+  activerecord:
+    models:
+      replay:
+        one: "Replay"
+        many: "Replays"
+        other: "Replays"
+  
   tutorial: "Tutorial"
   intro_text: "This is a place for Starcraft 2 replay sharing! To share, drag your replay files onto this page or use the Upload button."
   see_more: "See more"

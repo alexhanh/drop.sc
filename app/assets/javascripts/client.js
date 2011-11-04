@@ -133,6 +133,12 @@ var UI = (function($) {
    // $("#add-facebook-button").button();
    //$("#show-key").button();
    
+   $("#embedbutton").click(function(event) {
+     $("#embed_info").slideToggle();
+     $("#embed_info textarea").select();
+     event.preventDefault();
+   });
+   
    $(".uploads-list-item a").live('mouseover mouseout', function(event) {
      if (event.type == 'mouseover') {
        $(".list-block", this).addClass('hover');
@@ -194,46 +200,9 @@ var UI = (function($) {
  return p;
 }(jQuery));
 
-// TODO: hack for now
-function updateHTML(elmId, value) {
-  document.getElementById(elmId).innerHTML = value;
-}
-
-function onPlayerError(errorCode) {
-  alert("An error occured of type:" + errorCode);
-}
-
-// http://code.google.com/apis/youtube/js_api_reference.html
-function onYouTubePlayerReady(playerId) {
-  if(playerId == "player0") {
-    ytplayer0 = document.getElementById("ytPlayer0");
-    ytplayer0.addEventListener("onError", "onPlayerError");
-    ytplayer0.setPlaybackQuality("small");
-    ytplayer0.cueVideoByUrl($("#player0wrapper").attr('data_video_id'));
-  }
-  else if(playerId == "player1") {
-    ytplayer1 = document.getElementById("ytPlayer1");
-    ytplayer1.addEventListener("onError", "onPlayerError");
-    ytplayer1.setPlaybackQuality("hd720");
-    ytplayer1.cueVideoById($("#player1wrapper").attr('data_video_id'));
-  }
-}
-
-function loadPlayers() {
-  var params = { allowScriptAccess: "always", allowFullScreen: "true" };
-  var atts = { id: "ytPlayer0" };
-  swfobject.embedSWF("http://www.youtube.com/apiplayer?enablejsapi=1&playerapiid=player0", 
-          "player0container", "720", "443", "8", null, null, params, atts);
-
-  // Now do it all again with a different player
-  var params = { allowScriptAccess: "always", allowFullScreen: "true" };
-  var atts = { id: "ytPlayer1" };
-  swfobject.embedSWF("http://www.youtube.com/apiplayer?&enablejsapi=1&playerapiid=player1", 
-          "player1container", "720", "443", "8", null, null, params, atts);
-}
 
 
-$(document).ready(function() {  
+$(document).ready(function() {
   $(".minibutton").each(function(index) {
     var t = $(this).text();
     $(this).text('').append('<span>' + t + '</span>');

@@ -1,0 +1,20 @@
+!!!
+%html{:lang => I18n.locale.to_s}
+  %head
+    %meta{:charset => 'utf-8'}
+    
+    = stylesheet_link_tag "embed"
+    
+  %body
+    - for replay in @replays
+      .replay.box
+        .versus
+          != versus_embed(replay)
+
+        %span{:style=>"margin-left: 10px;"}!= "<b>#{replay.map_name}</b> #{t("replays.length", :count => replay.game_length/60)}<span class=\"at\"> ~ </span><i>#{days_ago(replay.saved_at)}</i>"
+
+        .replay-nav
+          = link_to ("<span>" + t("details") + "</span>").html_safe, replay, :class => "minibutton", :target => "_blank"
+          = link_to ("<span>" + t("download") + "</span>").html_safe, [:d, replay], :class => "minibutton"
+      
+    = will_paginate(@replays)

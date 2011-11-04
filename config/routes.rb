@@ -59,9 +59,9 @@ DropSc::Application.routes.draw do
       member do
         get 'd'
         post 'set_event'
-        get 'embed'
       end
       collection do
+        get 'embed'
         get 'search'
         get 'popular'
         post 'upload'

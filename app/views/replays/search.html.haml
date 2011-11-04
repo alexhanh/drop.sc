@@ -52,12 +52,23 @@
     = submit_tag "Search"
 
 .subheader
-  %h2= page_entries_info @replays
+  %h2
+    = page_entries_info(@replays)
+    != link_to("Embed results", '', :class => "minibutton", :id => "embedbutton")
 
   .order_by
     = replays_order_link("date_posted", t("order_links.date_posted"))
     = replays_order_link("downloads", t("order_links.downloads"))
     = replays_order_link("date_played", t("order_links.date_played"))
     = replays_order_link("comments", t("order_links.comments"))
+    
+.replay.box#embed_info
+  Copy and paste the following HTML code on your page:
+  <br>
+  = text_area_tag('test', get_embed_code())
+  <br>
+  Any replays uploaded in the future that match these search criteria will be shown on your page as well.
+  <br>
+  If the design and/or colors of the embed doesn't fit with your page, please send us an email ( support@drop.sc ) and we'll see what we can do.
 
 = render :partial => "replays", :locals => { :replays => @replays, :show_downloads => true }

@@ -24,17 +24,28 @@ module ReplaysHelper
     s
   end
   
-  def play_html(play, show_apm = false)
-    apm = ""
+  def play_html(play, show_ranks = true, force_no_colors = false, target_blank = false)
+    return "Computer (#{play.difficulty})" if play.computer?
+    return "Player" if play.player.nil?
+    
+    # apm = ""
     klass = "player-tip"
-    if show_apm && play.human?
-      klass = "player-tip-apm"
-      apm = "<br>Match APM: <span class='apm-string'>#{play.avg_apm}</span><br>Avg APM: <span class='apm-string'>#{Play.where(:player_id => play.player_id).average("avg_apm").to_i}</span>"
+    # if show_apm
+    #   klass = "player-tip-apm"
+    #   apm = "<br>Match APM: <span class='apm-string'>#{play.avg_apm}</span><br>Avg APM: <span class='apm-string'>#{Play.where(:player_id => play.player_id).average("avg_apm").to_i}</span>"
+    # end
+    
+    s = "<a href=\"#{show_player_slug_url(:bnet_id => play.player.bnet_id, :region => play.player.region, :name => play.player.name)}\""
+    if target_blank
+      s += "target=\"blank\""
     end
-    if play.human?
-      return "<a href=\"#{show_player_slug_url(:bnet_id => play.player.bnet_id, :region => play.player.region, :name => play.player.name)}\" title=\"#{play.player.name} - #{ladder_info(play.player)}#{apm}\" class=\"#{klass}\">" + pretty_player_name(play) + "</a> " + race_string(play)
+    if show_ranks
+      # s += "title=\"#{play.player.name} - #{ladder_info(play.player)}#{apm}\" class=\"#{klass}\""
+      s += "title=\"#{play.player.name} - #{ladder_info(play.player)}\" class=\"#{klass}\""
     end
-    "Computer (#{play.difficulty})"
+    s += ">" + pretty_player_name(play, force_no_colors) + "</a> " + race_string(play)
+    
+    return s
   end
   
   def versus_html(replay)
@@ -52,7 +63,7 @@ module ReplaysHelper
     s = ""
     teams(replay).each do |team, plays|
       plays.each do |play|
-        s += (play.human? ? play.player.name : "Computer" ) + " "
+        s += (play.human? ? (play.player.nil? ? "Player" : play.player.name) : "Computer" ) + " "
       end
       s = s[0..s.length-2] + ' vs '
     end
@@ -72,7 +83,7 @@ module ReplaysHelper
     s = ""
     teams(replay).each do |team, plays|
       plays.each do |play|
-        s += "<a href=\"#{player_url([play.player])}\">" + pretty_player_name(play) + "</a> " + race_string(play) + " "
+        s += play_html(play, false, false, true) + " "#"<a href=\"#{player_url([play.player])}\">" + pretty_player_name(play) + "</a> " + race_string(play) + " "
       end
       s = s[0..s.length-2] + ' <span class="vs">vs</span> '
     end
@@ -106,9 +117,9 @@ module ReplaysHelper
     s += ' <span style="color: ' + color + ';">' + msg.sender + "</span>: " + msg.msg
   end
   
-  def pretty_player_name(play)
+  def pretty_player_name(play, force_no_colors=false)
     color = dampen_color(play.color)
-    color = "#06C" if user_signed_in? && !current_user.use_colors
+    color = "#06C" if force_no_colors or (user_signed_in? && !current_user.use_colors)
     
     '<span style="color: ' + color + ';">' + play.player.name + "</span>"
   end
@@ -251,5 +262,14 @@ module ReplaysHelper
   def source_link(replay)
     return "" if replay.description.blank?
     return " via " + link_to("Sc2gears", "http://sites.google.com/site/sc2gears/", :target => "_blank")
+  end
+  
+  def get_embed_code()
+    p = params.dup
+    p.delete('page')
+    p.delete('commit')
+    p.delete('action')
+    p.delete('controller')
+    '<iframe src="' + embed_replays_url(p) + '" frameborder="0" width="680" height="540"></iframe>'
   end
 end

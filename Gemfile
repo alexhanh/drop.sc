@@ -8,7 +8,7 @@ gem 'pg'
 
 # Views
 gem 'haml'
-gem "will_paginate", "3.0.pre4"
+gem "will_paginate"
 gem "RedCloth"
 
 # Tasks
